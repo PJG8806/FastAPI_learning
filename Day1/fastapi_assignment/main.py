@@ -27,7 +27,7 @@ async def users(request: Request, user: UserData | None = None):
 		return {"message":f"{user.username} Insertion"}
 
 @app.get("/users/select")
-async def select_users(user: Annotated[UserSelect, Query()]):
+async def select_users(user: Annotated[UserSelect, Query()]):# Query() = ?값으로 읽어온다
 	print(user)
 	user_filter = UserModel.filter(**user.model_dump())
 	return user_filter
