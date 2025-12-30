@@ -13,5 +13,5 @@ async def say_hello(name: str) -> dict[str, str]:
     return {"message": f"Hello {name}"}
 
 
-def test_example():
-    assert 1 + 1 == 2
+def test_example() -> None:
+    print("test")

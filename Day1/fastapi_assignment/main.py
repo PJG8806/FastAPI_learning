@@ -1,6 +1,6 @@
 # test_main.py
 
-from typing import Annotated
+from typing import Annotated, List
 
 from fastapi import FastAPI, HTTPException, Path, Query, Request, status
 
@@ -13,7 +13,9 @@ UserModel.create_dummy()  # API 테스트를 위한 더미를 생성하는 메�
 
 
 @app.api_route("/users", methods=["GET", "POST"])
-async def users(request: Request, user: UserData | None = None):
+async def users(
+    request: Request, user: UserData | None = None
+) -> List[UserModel] | dict[str, str]:
     if request.method == "GET":
         user_list = UserModel.all()
         if not user_list:
@@ -21,44 +23,61 @@ async def users(request: Request, user: UserData | None = None):
                 status_code=status.HTTP_404_NOT_FOUND, detail="No user list"
             )
         return user_list
-    else:
-        UserModel.create(user.username, user.age, user.gender)
-        return {"message": f"{user.username} Insertion"}
+
+    if user is None:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="User data is required",
+        )
+
+    UserModel.create(user.username, user.age, user.gender)
+    return {"message": f"{user.username} Insertion"}
 
 
 @app.get("/users/select")
 async def select_users(
     user: Annotated[UserSelect, Query()]
-):  # Query() = ?값으로 읽어온다
+) -> list[UserModel]:  # Query() = ?값으로 읽어온다
     print(user)
     user_filter = UserModel.filter(**user.model_dump())
     return user_filter
 
 
 @app.get("/users/{user_id}")
-async def get(user_id: int = Path(gt=0)):
-    if not user_id:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-        )
-    return UserModel.get(id=user_id)
+async def get(user_id: int = Path(gt=0)) -> UserModel:
+    user_obj = UserModel.get(id=user_id)
+    if user_obj is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+    return user_obj
 
 
 @app.put("/users/{user_id}")
-async def update(user_id: int = Path(gt=0), user: UserData | None = None):
-    user_list = UserModel.get(id=user_id)
-    if not user_list:
+async def update(
+    user_id: int = Path(gt=0),
+    user: UserData | None = None,
+) -> UserModel:
+    user_obj = UserModel.get(id=user_id)
+    if user_obj is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+
+    if user is None:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="User data is required",
         )
-    user_list.update(
-        id=user_id, username=user.username, age=user.age, gender=user.gender
+
+    user_obj.update(
+        username=user.username,
+        age=user.age,
+        gender=user.gender,
     )
-    return user_list
+    return user_obj
 
 
 @app.delete("/users/{user_id}")
-async def delete(user_id: int = Path(gt=0), user: UserData | None = None):
+async def delete(
+    user_id: int = Path(gt=0), user: UserData | None = None
+) -> dict[str, str]:
     user_list = UserModel.get(id=user_id)
     if not user_list:
         raise HTTPException(
