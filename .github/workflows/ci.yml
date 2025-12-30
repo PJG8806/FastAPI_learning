@@ -20,7 +20,7 @@ jobs:
 
       - name: Cache Poetry # 이 구문 있으면 캐쉬가 추가 된다
         id: cache-poetry
-        uses: actions/cashe@v2 #캐쉬가 있는지 여부 확인
+        uses: actions/cache@v2 #캐쉬가 있는지 여부 확인
         with:
           key: poetry-1.8.5
           path: ~/.local/ # poetry 는 ~/.local 에 설치되므로, 해당 디렉터리를 캐시합니다.
