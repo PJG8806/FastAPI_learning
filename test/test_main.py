@@ -11,3 +11,7 @@ async def root() -> dict[str, str]:
 @app.get("/hello/{name}")
 async def say_hello(name: str) -> dict[str, str]:
     return {"message": f"Hello {name}"}
+
+
+def test_example():
+    assert 1 + 1 == 2
