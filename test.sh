@@ -4,7 +4,7 @@ COLOR_GREEN=`tput setaf 2;` #성공하면 색상
 COLOR_NC=`tput sgr0;` # 아니면 색상없음
 
 echo "Starting black"
-poetry run black test
+poetry run black .
 echo "OK"
 
 echo "Starting ruff"
@@ -13,7 +13,7 @@ poetry run ruff check --fix
 echo "OK"
 
 echo "Starting mypy"
-poetry run mypy test
+poetry run mypy .
 echo "OK"
 
 ecoh "Starting pytest with coverage"

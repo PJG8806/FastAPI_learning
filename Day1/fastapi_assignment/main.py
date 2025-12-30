@@ -2,11 +2,10 @@
 
 from typing import Annotated
 
-from fastapi import FastAPI, HTTPException, status, Path, Request, Query
+from fastapi import FastAPI, HTTPException, Path, Query, Request, status
 
 from app.models.users import UserModel
 from app.schemas.users import UserData, UserSelect
-
 
 app = FastAPI()
 
