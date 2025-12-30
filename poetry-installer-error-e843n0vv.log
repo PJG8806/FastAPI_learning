@@ -1,0 +1,8 @@
+dyld[6194]: Library not loaded: @rpath/libpython3.12.dylib
+  Referenced from: <4C4C4484-5555-3144-A1FB-238F460387AB> /Users/admin/Library/Application Support/pypoetry/venv/bin/python3.12
+  Reason: tried: '/Users/admin/Library/Application Support/pypoetry/venv/lib/libpython3.12.dylib' (no such file), '/Users/admin/Library/Application Support/pypoetry/venv/lib/libpython3.12.dylib' (no such file)
+
+Traceback:
+
+  File "<stdin>", line 937, in main
+  File "<stdin>", line 576, in run
