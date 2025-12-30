@@ -1,5 +1,4 @@
 # pyproject.toml
-...
 [tool.ruff]
 target-version = "py312"
 
