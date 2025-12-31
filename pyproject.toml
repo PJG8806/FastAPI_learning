@@ -16,6 +16,9 @@ pydantic = "^2.12.5"
 ruff = "^0.14.10"
 orjson = "3.10.12"
 examples = "^1.0.2"
+uuid = "^1.30"
+sqids = "0.5.1"
+datetime = "^6.0"
 
 
 [tool.poetry.group.dev.dependencies]
