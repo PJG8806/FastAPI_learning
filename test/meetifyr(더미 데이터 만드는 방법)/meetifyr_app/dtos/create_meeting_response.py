@@ -2,7 +2,7 @@ from typing import Annotated
 
 from pydantic import BaseModel, Field
 
-from test.meetifyr.app_meetifyr.dtos.frozen_config import FROZEN_CONFIG
+from test.meetifyr.app.dtos.frozen_config import FROZEN_CONFIG
 
 
 class CreateMeetingResponse(BaseModel):

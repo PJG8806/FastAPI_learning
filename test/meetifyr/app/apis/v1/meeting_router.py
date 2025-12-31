@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from test.meetifyr.app_meetifyr.dtos.create_meeting_response import (
+from test.meetifyr.app.dtos.create_meeting_response import (
     CreateMeetingResponse,
 )
 
