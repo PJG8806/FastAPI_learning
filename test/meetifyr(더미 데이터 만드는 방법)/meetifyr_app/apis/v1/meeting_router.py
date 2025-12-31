@@ -1,6 +1,8 @@
 from fastapi import APIRouter
 
-from test.meetifyr.app_meetifyr.dtos.create_meeting_response import CreateMeetingResponse
+from test.meetifyr.app_meetifyr.dtos.create_meeting_response import (
+    CreateMeetingResponse,
+)
 
 edgedb_router = APIRouter(prefix="/v1/edgedb/meetings", tags=["meeting"])
 mysql_router = APIRouter(prefix="/v1/mysql/meetings", tags=["meeting"])
