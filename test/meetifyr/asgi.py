@@ -1,4 +1,4 @@
-from test.meetifyr._app import app
+from ._app import app
 
 if __name__ == "__main__":
     import uvicorn
