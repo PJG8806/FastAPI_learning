@@ -2,7 +2,7 @@
 
 import pytest
 
-from app.models.users import UserModel
+from Day1_app.models.users import UserModel
 
 TEST_BASE_URL = "http://test"
 

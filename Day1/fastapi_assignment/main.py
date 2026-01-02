@@ -4,8 +4,8 @@ from typing import Annotated, List
 
 from fastapi import FastAPI, HTTPException, Path, Query, Request, status
 
-from app.models.users import UserModel
-from app.schemas.users import UserData, UserSelect
+from Day1_app.models.users import UserModel
+from Day1_app.schemas.users import UserData, UserSelect
 
 app = FastAPI()
 

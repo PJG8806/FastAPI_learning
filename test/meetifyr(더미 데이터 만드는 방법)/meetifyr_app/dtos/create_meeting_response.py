@@ -1,7 +1,6 @@
 from typing import Annotated
 
 from pydantic import BaseModel, Field
-
 from test.meetifyr.meetifyr_app.dtos.frozen_config import FROZEN_CONFIG
 
 
