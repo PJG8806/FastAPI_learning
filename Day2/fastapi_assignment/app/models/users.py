@@ -1,4 +1,3 @@
-# meetifyr_app/models/users.py
 
 import random
 from typing import Any, ClassVar, List, Optional

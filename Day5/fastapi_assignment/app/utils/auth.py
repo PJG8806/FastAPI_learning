@@ -1,5 +1,3 @@
-# app/utils/auth.py
-
 from typing import Annotated
 
 import jwt

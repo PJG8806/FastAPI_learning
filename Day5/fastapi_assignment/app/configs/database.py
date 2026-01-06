@@ -4,8 +4,8 @@ from tortoise import Tortoise
 from tortoise.contrib.fastapi import register_tortoise
 
 TORTOISE_APP_MODELS = [
-    "app.models.users",
-    "app.models.movies",
+    "Day5.fastapi_assignment.app.models.users",
+    "Day5.fastapi_assignment.app.models.movies",
     "aerich.models",
 ]
 

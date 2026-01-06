@@ -1,4 +1,3 @@
-# test_main.py
 
 
 from Day3.fastapi_assignment.app.models.movies import MovieModel

@@ -1,5 +1,3 @@
-# conftest.py
-
 import pytest
 from Day5.fastapi_assignment.app.models.users import UserModel
 

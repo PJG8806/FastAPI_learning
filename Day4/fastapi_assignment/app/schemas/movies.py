@@ -1,4 +1,3 @@
-# app/schemas/movies.py
 
 from typing import Annotated, Any
 

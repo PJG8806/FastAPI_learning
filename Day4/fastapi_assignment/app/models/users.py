@@ -1,4 +1,3 @@
-# app/models/users.py
 
 from __future__ import annotations
 

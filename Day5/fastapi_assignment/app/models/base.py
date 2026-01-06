@@ -1,5 +1,3 @@
-# app/models/base.py
-
 from tortoise import fields
 
 

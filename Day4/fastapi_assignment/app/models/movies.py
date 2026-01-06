@@ -1,4 +1,3 @@
-# app/models/movies.py
 
 import random
 from enum import StrEnum

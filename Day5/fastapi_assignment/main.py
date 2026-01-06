@@ -1,6 +1,3 @@
-# test_main.py
-
-
 from Day5.fastapi_assignment.app.models.movies import MovieModel
 from Day5.fastapi_assignment.app.models.users import UserModel
 from Day5.fastapi_assignment.app.routers.movies import movie_router

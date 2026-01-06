@@ -1,4 +1,3 @@
-# app/routers/movies.py
 
 from typing import Annotated
 

@@ -1,5 +1,3 @@
-# app/configs/__init__.py
-
 from Day5.fastapi_assignment.app.configs.base import Config
 
 

@@ -1,5 +1,3 @@
-# app/schemas/movies.py
-
 from typing import Annotated, Any
 
 from Day5.fastapi_assignment.app.models.movies import GenreEnum
@@ -21,6 +19,7 @@ class MovieResponse(BaseModel):
     plot: str
     cast: dict[str, Any]
     genre: GenreEnum
+    poster_image_url: str | None = None
 
 
 class MovieSearchParams(BaseModel):

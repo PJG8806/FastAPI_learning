@@ -1,5 +1,3 @@
-# test_main.py
-
 
 from Day4.fastapi_assignment.app.models.movies import MovieModel
 from Day4.fastapi_assignment.app.models.users import UserModel

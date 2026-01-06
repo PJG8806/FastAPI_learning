@@ -1,4 +1,4 @@
-# app/routers/movies.py
+
 from typing import Annotated
 
 from Day3.fastapi_assignment.app.models.movies import MovieModel
