@@ -1,0 +1,31 @@
+# test_main.py
+
+from typing import Annotated, List
+
+from Day2.fastapi_assignment.app.models.movies import MovieModel
+from Day2.fastapi_assignment.app.models.users import UserModel
+from Day2.fastapi_assignment.app.schemas.movies import (
+    CreateMovieRequest,
+    MovieResponse,
+    MovieSearchParams,
+    MovieUpdateRequest,
+)
+from Day2.fastapi_assignment.app.schemas.users import UserData, UserSelect
+from fastapi import FastAPI, HTTPException, Path, Query, status
+
+from Day3.fastapi_assignment.app.routers.movies import movie_router
+from Day3.fastapi_assignment.app.routers.users import user_router
+
+app = FastAPI()
+
+UserModel.create_dummy()  # API 테스트를 위한 더미를 생성하는 메서드 입니다.
+MovieModel.create_dummy()
+
+app.include_router(user_router)
+app.include_router(movie_router)
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(app, host="127.0.0.1", port=8000)

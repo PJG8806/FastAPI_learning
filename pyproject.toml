@@ -35,6 +35,9 @@ tortoise-orm = "^0.25.3"
 aiomysql = "^0.3.2"
 a = "^1.0"
 annotated = "^0.0.2"
+jwt = "^1.4.0"
+jose = "^1.0.0"
+pyjwt = "^2.10.1"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "1.13.0"
