@@ -1,7 +1,7 @@
 # conftest.py
 
 import pytest
-from Day2.fastapi_assignment.app.models.users import UserModel
+from Day4.fastapi_assignment.app.models.users import UserModel
 
 TEST_BASE_URL = "http://test"
 

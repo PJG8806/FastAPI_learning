@@ -1,11 +1,12 @@
 # test_main.py
 
 
-from Day3.fastapi_assignment.app.models.movies import MovieModel
-from Day3.fastapi_assignment.app.models.users import UserModel
-from Day3.fastapi_assignment.app.routers.movies import movie_router
-from Day3.fastapi_assignment.app.routers.users import user_router
+from Day5.fastapi_assignment.app.models.movies import MovieModel
+from Day5.fastapi_assignment.app.models.users import UserModel
+from Day5.fastapi_assignment.app.routers.movies import movie_router
+from Day5.fastapi_assignment.app.routers.users import user_router
 from fastapi import FastAPI
+from query.app import initialize_tortoise
 
 app = FastAPI()
 
@@ -15,6 +16,7 @@ MovieModel.create_dummy()
 app.include_router(user_router)
 app.include_router(movie_router)
 
+initialize_tortoise(app=app)
 
 if __name__ == "__main__":
     import uvicorn
