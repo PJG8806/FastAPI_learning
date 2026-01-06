@@ -22,7 +22,19 @@ datetime = "^6.0"
 python-multipart = "^0.0.21"
 pybase62 = "^1.0.0"
 passlib = "^1.7.4"
-
+cryptography = "44.0.0"
+aerich = "0.8.1"
+tomlkit = "0.13.2"
+pydantic-settings = "2.7.1"
+tortoise = "^0.1.1"
+edgedb = "2.2.0"
+httpx = "0.28.1"
+oci-cli = "^3.71.4"
+cast = "^0.1.1"
+tortoise-orm = "^0.25.3"
+aiomysql = "^0.3.2"
+a = "^1.0"
+annotated = "^0.0.2"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "1.13.0"
@@ -31,14 +43,13 @@ pytest = "^9.0.2"
 coverage = "7.6.9"
 black = "24.10.0"
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
 [tool.mypy]
 plugins = ["pydantic.mypy"]
 python_version = 3.13
 strict = true
+explicit_package_bases = true
+mypy_path = ["."]
+files = ["app"]
 
 [tool.coverage.run]
 omit = ["*/test_*.py"]
@@ -46,3 +57,13 @@ omit = ["*/test_*.py"]
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "session"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.aerich]
+tortoise_orm = "query.app.configs.tortoise_config.TORTOISE_ORM"
+location = "./migrations"
+src_folder = "./."
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

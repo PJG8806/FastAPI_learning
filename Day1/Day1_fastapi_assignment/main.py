@@ -2,10 +2,9 @@
 
 from typing import Annotated, List
 
+from Day1.Day1_fastapi_assignment.app.models.users import UserModel
+from Day1.Day1_fastapi_assignment.app.schemas.users import UserData, UserSelect
 from fastapi import FastAPI, HTTPException, Path, Query, Request, status
-
-from Day1_app.models.users import UserModel
-from Day1_app.schemas.users import UserData, UserSelect
 
 app = FastAPI()
 

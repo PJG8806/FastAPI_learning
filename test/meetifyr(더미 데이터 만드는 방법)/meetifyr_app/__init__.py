@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
+
 from test.meetifyr.meetifyr_app.apis.v1.meeting_router import (
     edgedb_router as meeting_edgedb_router,
 )
