@@ -2,15 +2,17 @@ import uuid
 from datetime import date
 
 from query.app.queries.meeting.create_meeting_edgeql_async_edgeql import (
-    CreateMeeting_EdgeqlResult,
-    create_meeting_edgeql,
+    CreateMeetingResult,
+    create_meeting,
 )
 from query.app.queries.meeting.get_meeting_by_url_code_async_edgeql import (
     get_meeting_by_url_code,
 )
 from query.app.queries.meeting.models import FullMeeting
-from query.app.queries.meeting.update_meeting_location_async_edgeql import UpdateMeetingLocationResult, \
-    update_meeting_location
+from query.app.queries.meeting.update_meeting_location_async_edgeql import (
+    UpdateMeetingLocationResult,
+    update_meeting_location,
+)
 from query.app.queries.meeting.update_meeting_start_end_async_edgeql import (
     update_meeting_start_end,
 )
@@ -22,8 +24,8 @@ from query.app.utils.base62 import Base62
 from query.app.utils.edge import edgedb_client
 
 
-async def service_create_meeting_edgedb() -> CreateMeeting_EdgeqlResult:
-    return await create_meeting_edgeql(
+async def service_create_meeting_edgedb() -> CreateMeetingResult:
+    return await create_meeting(
         executor=edgedb_client,
         url_code=Base62.encode(uuid.uuid4().int),
     )
@@ -54,7 +56,9 @@ async def service_update_meeting_location_edgedb(
     )
 
 
-async def service_update_meeting_title_edgedb(meeting_url_code: str, title: str) -> UpdateMeetingTitleResult | None:
+async def service_update_meeting_title_edgedb(
+    meeting_url_code: str, title: str
+) -> UpdateMeetingTitleResult | None:
     return await update_meeting_title(
         edgedb_client,
         url_code=meeting_url_code,

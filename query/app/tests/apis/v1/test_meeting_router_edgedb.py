@@ -1,12 +1,12 @@
-from datetime import datetime
+from datetime import date
 
 import httpx
 from httpx import AsyncClient
 from starlette.status import (
     HTTP_200_OK,
+    HTTP_204_NO_CONTENT,
     HTTP_404_NOT_FOUND,
     HTTP_422_UNPROCESSABLE_CONTENT,
-    HTTP_204_NO_CONTENT,
 )
 
 from query.app import app
@@ -58,7 +58,6 @@ async def test_api_get_meeting() -> None:
     assert response_body["location"] == ""
 
 
-
 async def test_api_get_meeting_404() -> None:
     # Given
     async with httpx.AsyncClient(
@@ -96,13 +95,14 @@ async def test_api_update_meeting_date_range() -> None:
     meeting = await edgedb_client.query_single(
         f"select Meeting {{start_date, end_date}} filter .url_code = '{url_code}'"
     )
-    assert meeting.start_date == datetime.date(2025, 10, 10)
-    assert meeting.end_date == datetime.date(2025, 10, 20)
-
+    assert meeting.start_date == date(2025, 10, 10)
+    assert meeting.end_date == date(2025, 10, 20)
 
 
 async def test_can_not_update_meeting_date_range_when_range_is_too_long() -> None:
-    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test") as client:
+    async with httpx.AsyncClient(
+        transport=httpx.ASGITransport(app=app), base_url="http://test"
+    ) as client:
         # Given
         create_meeting_response = await client.post(url="/v1/edgedb/meetings")
         url_code = create_meeting_response.json()["url_code"]
@@ -110,17 +110,25 @@ async def test_can_not_update_meeting_date_range_when_range_is_too_long() -> Non
         # When
         response = await client.patch(
             url=f"/v1/edgedb/meetings/{url_code}/date_range",
-            json={"start_date": (start := "2025-10-10"), "end_date": (end := "2030-10-20")},
+            json={
+                "start_date": (start := "2025-10-10"),
+                "end_date": (end := "2030-10-20"),
+            },
         )
 
     # Then
-    assert response.status_code == HTTP_422_UNPROCESSABLE_CONTENT # 원래 ENTITY
+    assert response.status_code == HTTP_422_UNPROCESSABLE_CONTENT  # 원래 ENTITY
     response_body = response.json()
-    assert response_body["detail"] == f"start {start} and end {end} should be within {MEETING_DATE_MAX_RANGE.days} days"
+    assert (
+        response_body["detail"]
+        == f"start {start} and end {end} should be within {MEETING_DATE_MAX_RANGE.days} days"
+    )
 
 
 async def test_can_not_update_meeting_date_range_when_it_is_already_set() -> None:
-    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test") as client:
+    async with httpx.AsyncClient(
+        transport=httpx.ASGITransport(app=app), base_url="http://test"
+    ) as client:
         # Given
         create_meeting_response = await client.post(url="/v1/edgedb/meetings")
         url_code = create_meeting_response.json()["url_code"]
@@ -136,13 +144,18 @@ async def test_can_not_update_meeting_date_range_when_it_is_already_set() -> Non
         )
 
     # Then
-    assert response.status_code == HTTP_422_UNPROCESSABLE_CONTENT # 원래 ENTITY
+    assert response.status_code == HTTP_422_UNPROCESSABLE_CONTENT  # 원래 ENTITY
     response_body = response.json()
-    assert response_body["detail"] == f"meeting: {url_code} start: 2025-10-10 end: 2025-10-20 are already set"
+    assert (
+        response_body["detail"]
+        == f"meeting: {url_code} start: 2025-10-10 end: 2025-10-20 are already set"
+    )
 
 
 async def test_can_not_update_meeting_does_not_exists() -> None:
-    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test") as client:
+    async with httpx.AsyncClient(
+        transport=httpx.ASGITransport(app=app), base_url="http://test"
+    ) as client:
         # Given
         url_code = "invalid_url"
 
@@ -158,29 +171,38 @@ async def test_can_not_update_meeting_does_not_exists() -> None:
     assert response_body["detail"] == "meeting with url_code: invalid_url not found"
 
 
-
 async def test_api_update_meeting_title() -> None:
-    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test") as client:
+    async with httpx.AsyncClient(
+        transport=httpx.ASGITransport(app=app), base_url="http://test"
+    ) as client:
         # Given
         create_meeting_response = await client.post(url="/v1/edgedb/meetings")
         url_code = create_meeting_response.json()["url_code"]
 
         # When
-        response = await client.patch(f"/v1/edgedb/meetings/{url_code}/title", json={"title": (title := "abc")})
+        response = await client.patch(
+            f"/v1/edgedb/meetings/{url_code}/title", json={"title": (title := "abc")}
+        )
 
     # Then
     assert response.status_code == HTTP_204_NO_CONTENT
-    meeting = await edgedb_client.query_single(f"select Meeting {{title}} filter .url_code = '{url_code}'")
+    meeting = await edgedb_client.query_single(
+        f"select Meeting {{title}} filter .url_code = '{url_code}'"
+    )
     assert meeting.title == title
 
 
 async def test_can_not_update_meeting_title_when_meeting_does_not_exists() -> None:
-    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test") as client:
+    async with httpx.AsyncClient(
+        transport=httpx.ASGITransport(app=app), base_url="http://test"
+    ) as client:
         # Given
         url_code = "invalid_url_code"
 
         # When
-        response = await client.patch(f"/v1/edgedb/meetings/{url_code}/title", json={"title": "abc"})
+        response = await client.patch(
+            f"/v1/edgedb/meetings/{url_code}/title", json={"title": "abc"}
+        )
 
     # Then
     assert response.status_code == HTTP_404_NOT_FOUND
@@ -188,25 +210,33 @@ async def test_can_not_update_meeting_title_when_meeting_does_not_exists() -> No
 
 async def test_api_update_meeting_location() -> None:
     # given
-    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test") as client:
+    async with httpx.AsyncClient(
+        transport=httpx.ASGITransport(app=app), base_url="http://test"
+    ) as client:
         create_meeting_response = await client.post(url="/v1/edgedb/meetings")
         url_code = create_meeting_response.json()["url_code"]
         location = "test location"
 
         # when
-        response = await client.patch(f"/v1/edgedb/meetings/{url_code}/location", json={"location": location})
+        response = await client.patch(
+            f"/v1/edgedb/meetings/{url_code}/location", json={"location": location}
+        )
 
     # then
     assert response.status_code == HTTP_204_NO_CONTENT
 
 
 async def test_can_not_update_meeting_location_when_meeting_does_not_exists() -> None:
-    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test") as client:
+    async with httpx.AsyncClient(
+        transport=httpx.ASGITransport(app=app), base_url="http://test"
+    ) as client:
         # Given
         url_code = "invalid_url_code"
 
         # When
-        response = await client.patch(f"/v1/edgedb/meetings/{url_code}/location", json={"location": "abc"})
+        response = await client.patch(
+            f"/v1/edgedb/meetings/{url_code}/location", json={"location": "abc"}
+        )
 
     # Then
     assert response.status_code == HTTP_404_NOT_FOUND
