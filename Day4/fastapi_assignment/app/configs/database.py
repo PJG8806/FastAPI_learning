@@ -1,8 +1,7 @@
+from Day4.fastapi_assignment.app.configs import config
 from fastapi import FastAPI
 from tortoise import Tortoise
 from tortoise.contrib.fastapi import register_tortoise
-
-from Day4.fastapi_assignment.app.configs import config
 
 TORTOISE_APP_MODELS = [
     "app.models.users",
@@ -14,7 +13,7 @@ TORTOISE_ORM = {
     "connections": {
         "default": {
             "engine": "tortoise.backends.mysql",
-            "credentials":{
+            "credentials": {
                 "host": config.MYSQL_HOST,
                 "port": config.MYSQL_PORT,
                 "user": config.MYSQL_USER,
@@ -32,6 +31,7 @@ TORTOISE_ORM = {
     },
     "timezone": "Asia/Seoul",
 }
+
 
 def initialize_tortoise_orm(app: FastAPI):
     Tortoise.init_models(TORTOISE_APP_MODELS, "models")

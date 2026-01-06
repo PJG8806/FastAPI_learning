@@ -36,15 +36,15 @@ class UserModel:
         """비밀번호 검증"""
         return pwd_context.verify(plain_password, hashed_password)
 
-
     @classmethod
     def authenticate(cls, username: str, password: str) -> UserModel | None:
         """사용자 인증"""
         for user in cls._data:
-            if user.username == username and cls.verify_password(password, user.password):
+            if user.username == username and cls.verify_password(
+                password, user.password
+            ):
                 return user
         return None
-
 
     @classmethod
     def create(cls, username: str, password: str, age: int, gender: str) -> UserModel:

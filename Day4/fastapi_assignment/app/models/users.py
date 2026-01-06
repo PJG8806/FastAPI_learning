@@ -3,14 +3,12 @@
 from __future__ import annotations
 
 import random
+from enum import StrEnum
 from typing import Any
 
-from passlib.context import CryptContext
-
 from Day4.fastapi_assignment.app.models.base import BaseModel
-from enum import StrEnum
-from tortoise import fields, Model
-
+from passlib.context import CryptContext
+from tortoise import Model, fields
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -28,7 +26,7 @@ class User(BaseModel, Model):
     last_login = fields.DatetimeField(null=True)
 
     class Meta:
-        table = 'users'
+        table = "users"
 
 
 class UserModel:
@@ -57,15 +55,15 @@ class UserModel:
         """비밀번호 검증"""
         return pwd_context.verify(plain_password, hashed_password)
 
-
     @classmethod
     def authenticate(cls, username: str, password: str) -> UserModel | None:
         """사용자 인증"""
         for user in cls._data:
-            if user.username == username and cls.verify_password(password, user.password):
+            if user.username == username and cls.verify_password(
+                password, user.password
+            ):
                 return user
         return None
-
 
     @classmethod
     def create(cls, username: str, password: str, age: int, gender: str) -> UserModel:

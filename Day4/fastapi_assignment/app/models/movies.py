@@ -2,8 +2,10 @@
 
 import random
 from enum import StrEnum
-from tortoise import Model, fields
+
 from Day4.fastapi_assignment.app.models.base import BaseModel
+from tortoise import Model, fields
+
 
 class GenreEnum(StrEnum):
     SF = "SF"
@@ -26,7 +28,6 @@ class Movie(BaseModel, Model):
 
     class Meta:
         table = "movies"
-
 
 
 class MovieModel:

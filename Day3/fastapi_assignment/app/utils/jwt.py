@@ -1,19 +1,18 @@
 # app/utils/jwt.py
 
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Annotated
 
-import jwt #PyJWT
+import jwt  # PyJWT
+from Day3.fastapi_assignment.app.models.users import UserModel
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from passlib.exc import InvalidTokenError
 
-from Day3.fastapi_assignment.app.models.users import UserModel
-
 SECRET_KEY = "radadssadadqwe1231eszdas12e1dasdsad12"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl='users/login')
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="users/login")
 
 
 def create_access_token(data: dict):

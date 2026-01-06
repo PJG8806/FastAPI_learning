@@ -1,15 +1,14 @@
 # app/routers/movies.py
 from typing import Annotated
 
-from fastapi import Path, HTTPException, Query, APIRouter
-
 from Day3.fastapi_assignment.app.models.movies import MovieModel
 from Day3.fastapi_assignment.app.schemas.movies import (
-    MovieResponse,
     CreateMovieRequest,
+    MovieResponse,
     MovieSearchParams,
     MovieUpdateRequest,
 )
+from fastapi import APIRouter, HTTPException, Path, Query
 
 movie_router = APIRouter(prefix="/movies", tags=["movies"])
 

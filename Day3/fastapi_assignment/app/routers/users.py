@@ -1,9 +1,7 @@
 # app/routers/users.py
 
+from datetime import datetime
 from typing import Annotated
-
-from fastapi import Path, HTTPException, Query, APIRouter, Depends, status
-from fastapi.security import OAuth2PasswordRequestForm
 
 from Day3.fastapi_assignment.app.models.users import UserModel
 from Day3.fastapi_assignment.app.schemas.users import (
@@ -12,8 +10,9 @@ from Day3.fastapi_assignment.app.schemas.users import (
     UserSearchParams,
     UserUpdateRequest,
 )
-from datetime import datetime
 from Day3.fastapi_assignment.app.utils.jwt import create_access_token
+from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi.security import OAuth2PasswordRequestForm
 
 user_router = APIRouter(prefix="/users", tags=["user"])
 
@@ -66,8 +65,8 @@ async def login_user(data: Annotated[OAuth2PasswordRequestForm, Depends()]):
 
 @user_router.patch("/me")
 async def update_user(
-        user: Annotated[UserModel, Depends(get_all_users)],
-        data: UserUpdateRequest,
+    user: Annotated[UserModel, Depends(get_all_users)],
+    data: UserUpdateRequest,
 ):
     if user is None:
         raise HTTPException(status_code=404)
@@ -78,4 +77,4 @@ async def update_user(
 @user_router.delete("/me")
 async def delete_user(user: Annotated[UserModel, Depends(get_all_users)]):
     user.delete()
-    return {'detail': 'Successfully Deleted.'}
+    return {"detail": "Successfully Deleted."}

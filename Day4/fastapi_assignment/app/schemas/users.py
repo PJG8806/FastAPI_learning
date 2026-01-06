@@ -1,13 +1,12 @@
+from enum import Enum
+from typing import Annotated
 
 from pydantic import BaseModel, Field
-from enum import Enum
-
-from typing import Annotated
 
 
 class GenderEnum(str, Enum):
-    male = 'male'
-    female = 'female'
+    male = "male"
+    female = "female"
 
 
 class UserCreateRequest(BaseModel):
@@ -15,6 +14,7 @@ class UserCreateRequest(BaseModel):
     password: str
     age: int
     gender: GenderEnum
+
 
 class UserUpdateRequest(BaseModel):
     username: str | None = None

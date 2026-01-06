@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings
 
+
 class Config(BaseSettings):
     SECRET_KEY: str = "default_secret_key"
 

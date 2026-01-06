@@ -1,20 +1,11 @@
 # test_main.py
 
-from typing import Annotated, List
 
 from Day2.fastapi_assignment.app.models.movies import MovieModel
 from Day2.fastapi_assignment.app.models.users import UserModel
-from Day2.fastapi_assignment.app.schemas.movies import (
-    CreateMovieRequest,
-    MovieResponse,
-    MovieSearchParams,
-    MovieUpdateRequest,
-)
-from Day2.fastapi_assignment.app.schemas.users import UserData, UserSelect
-from fastapi import FastAPI, HTTPException, Path, Query, status
-
 from Day3.fastapi_assignment.app.routers.movies import movie_router
 from Day3.fastapi_assignment.app.routers.users import user_router
+from fastapi import FastAPI
 from query.app import initialize_tortoise
 
 app = FastAPI()

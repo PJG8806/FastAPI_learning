@@ -3,13 +3,12 @@
 from typing import Annotated
 
 import jwt
-from fastapi import Depends, HTTPException, status
-from jwt import InvalidTokenError
-from passlib.context import CryptContext
-
 from Day4.fastapi_assignment.app.configs import config
 from Day4.fastapi_assignment.app.models.users import User
 from Day4.fastapi_assignment.app.utils.jwt import oauth2_scheme
+from fastapi import Depends, HTTPException, status
+from jwt import InvalidTokenError
+from passlib.context import CryptContext
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -21,7 +20,9 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
-        payload = jwt.decode(token, config.SECRET_KEY, algorithms=[config.JWT_ALGORITHM])
+        payload = jwt.decode(
+            token, config.SECRET_KEY, algorithms=[config.JWT_ALGORITHM]
+        )
         user_id = payload.get("user_id")
         if user_id is None:
             raise credentials_exception
@@ -46,7 +47,9 @@ def verify_password(plain_password, hashed_password):
 async def authenticate(username, password):
     user = await User.get_or_none(username=username)
     if user is None:
-        raise HTTPException(status_code=401, detail=f"username: {username} - not found.")
+        raise HTTPException(
+            status_code=401, detail=f"username: {username} - not found."
+        )
     if not verify_password(password, user.hashed_password):
         raise HTTPException(status_code=401, detail="password incorrect.")
     return user
