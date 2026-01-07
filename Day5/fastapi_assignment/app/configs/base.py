@@ -14,10 +14,9 @@ class Config(BaseSettings):
     MYSQL_PORT: int = 3306
     MYSQL_USER: str = "flaskuser"
     MYSQL_PASSWORD: str = "flaskpass"
-    MYSQL_DATABASE: str = "oz"
+    MYSQL_DATABASE: str = "fastAPI_test"
     MYSQL_CONNECT_TIMEOUT: int = 5
     CONNECTION_POOL_MAXSIZE: int = 10
 
     BASE_DIR: Path = Path(__file__).resolve().parent.parent.parent
     MEDIA_DIR: str = os.path.join(BASE_DIR, "media")
-

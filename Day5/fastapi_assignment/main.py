@@ -1,9 +1,9 @@
+from Day5.fastapi_assignment.app.configs.database import initialize_tortoise
 from Day5.fastapi_assignment.app.models.movies import MovieModel
 from Day5.fastapi_assignment.app.models.users import UserModel
 from Day5.fastapi_assignment.app.routers.movies import movie_router
 from Day5.fastapi_assignment.app.routers.users import user_router
 from fastapi import FastAPI
-from query.app import initialize_tortoise
 
 app = FastAPI()
 

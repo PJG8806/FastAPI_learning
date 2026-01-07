@@ -3,6 +3,9 @@ from fastapi import FastAPI
 from tortoise import Tortoise
 from tortoise.contrib.fastapi import register_tortoise
 
+# 작성후 models에서 적용할 테이블 작성후 마이그레이션 진행
+
+
 TORTOISE_APP_MODELS = [
     "Day5.fastapi_assignment.app.models.users",
     "Day5.fastapi_assignment.app.models.movies",
@@ -20,7 +23,7 @@ TORTOISE_ORM = {
                 "password": config.MYSQL_PASSWORD,
                 "database": config.MYSQL_DATABASE,
                 "connect_timeout": config.MYSQL_CONNECT_TIMEOUT,
-                "maxsize": config.MYSQL_MAXSIZE,
+                "maxsize": config.CONNECTION_POOL_MAXSIZE,
             },
         },
     },
@@ -33,6 +36,6 @@ TORTOISE_ORM = {
 }
 
 
-def initialize_tortoise_orm(app: FastAPI):
+def initialize_tortoise(app: FastAPI):
     Tortoise.init_models(TORTOISE_APP_MODELS, "models")
     register_tortoise(app, config=TORTOISE_ORM)

@@ -8,6 +8,12 @@ from Day5.fastapi_assignment.app.models.base import BaseModel
 from passlib.context import CryptContext
 from tortoise import Model, fields
 
+# aerich init -t Day5.fastapi_assignment.app.configs.database.TORTOISE_ORM (aerich 초기화)
+# aerich init-db (DB 초기 테이블 생성)
+# 모델 변경후
+# aerich migrate (마이그레이션 파일 생성
+# aerich upgrade (DB 반영)
+
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 

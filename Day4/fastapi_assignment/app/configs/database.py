@@ -20,7 +20,7 @@ TORTOISE_ORM = {
                 "password": config.MYSQL_PASSWORD,
                 "database": config.MYSQL_DATABASE,
                 "connect_timeout": config.MYSQL_CONNECT_TIMEOUT,
-                "maxsize": config.MYSQL_MAXSIZE,
+                "maxsize": config.CONNECTION_POOL_MAXSIZE,
             },
         },
     },
@@ -33,6 +33,6 @@ TORTOISE_ORM = {
 }
 
 
-def initialize_tortoise_orm(app: FastAPI):
+def initialize_tortoise(app: FastAPI):
     Tortoise.init_models(TORTOISE_APP_MODELS, "models")
     register_tortoise(app, config=TORTOISE_ORM)

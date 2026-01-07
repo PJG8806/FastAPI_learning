@@ -1,4 +1,3 @@
-
 from typing import Annotated
 
 from Day4.fastapi_assignment.app.models.movies import Movie

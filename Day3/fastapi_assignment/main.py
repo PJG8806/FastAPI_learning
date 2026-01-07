@@ -1,5 +1,3 @@
-
-
 from Day3.fastapi_assignment.app.models.movies import MovieModel
 from Day3.fastapi_assignment.app.models.users import UserModel
 from Day3.fastapi_assignment.app.routers.movies import movie_router

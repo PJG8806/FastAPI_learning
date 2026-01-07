@@ -1,4 +1,3 @@
-
 import pytest
 from Day3.fastapi_assignment.app.models.users import UserModel
 

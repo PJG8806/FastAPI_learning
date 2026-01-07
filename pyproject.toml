@@ -21,7 +21,6 @@ sqids = "0.5.1"
 datetime = "^6.0"
 python-multipart = "^0.0.21"
 pybase62 = "^1.0.0"
-passlib = "^1.7.4"
 cryptography = "44.0.0"
 aerich = "0.8.1"
 tomlkit = "0.13.2"
@@ -38,6 +37,11 @@ annotated = "^0.0.2"
 jwt = "^1.4.0"
 jose = "^1.0.0"
 pyjwt = "^2.10.1"
+bcrypt = "<5.0"
+
+[tool.poetry.dependencies.passlib]
+version = ">=1.7.4"
+extras = ["bcrypt"]
 
 [tool.poetry.group.dev.dependencies]
 mypy = "1.13.0"
@@ -63,7 +67,7 @@ asyncio_default_fixture_loop_scope = "session"
 filterwarnings = ["ignore::DeprecationWarning"]
 
 [tool.aerich]
-tortoise_orm = "query.app.configs.tortoise_config.TORTOISE_ORM"
+tortoise_orm = "Day5.fastapi_assignment.app.configs.database.TORTOISE_ORM"
 location = "./migrations"
 src_folder = "./."
 
